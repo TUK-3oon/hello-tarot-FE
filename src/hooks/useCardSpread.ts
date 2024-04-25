@@ -24,6 +24,7 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
         }
     }, [isAnimated]);
 
+    //카드 뿌려줌(x: 가로축, y 세로축)
     const spread = (): ISpreadCardPosition[] => {
         return Array.from({ length: 12 }, (_, i) => {
             const angle = (180 / 11 * i) * (Math.PI / 180);
