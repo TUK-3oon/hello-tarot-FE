@@ -11,7 +11,8 @@ export const Main: React.FC = () => {
     const { positions, selectedCards, visibleCards, handleCardClick, resetAnimation } = useCardSpread();
 
     useEffect(() => {
-        if (selectedCards.length === 3) {
+        const MAX_SELECTED_CARD = 3
+        if (selectedCards.length === MAX_SELECTED_CARD) {
             setIsHidden(true);
             setTimeout(() => {
                 navigate('/main/select');
@@ -27,7 +28,7 @@ export const Main: React.FC = () => {
                     <div className='w-24 h-32 m-auto relative bg-tarot-back bg-cover bg-center'>
                         {positions.map((card, i) => (
                             visibleCards[i] && (
-                                <div key={i} className={`card card-${i} w-24 h-32 bg-tarot-back bg-cover bg-center absolute transition-all duration-1000 cursor-pointer `}
+                                <div key={i} className={`card card-${i} w-24 h-32 bg-tarot-back bg-cover bg-center absolute transition-all duration-1000`}
                                     style={{ left: `${card.x}px`, top: `${card.y}px` }}
                                     onClick={() => handleCardClick(i)} />
                             )

@@ -24,13 +24,12 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
         }
     }, [isAnimated]);
 
-    //카드 뿌려줌(x: 가로축, y 세로축)
     const spread = (): ISpreadCardPosition[] => {
         return Array.from({ length: 12 }, (_, i) => {
             const angle = (180 / 11 * i) * (Math.PI / 180);
             return {
                 x: 600 * Math.cos(angle),
-                y: 200 * Math.sin(angle),
+                y: 200 * Math.sin(angle), //(x: 가로축, y 세로축)
             };
         });
     };
