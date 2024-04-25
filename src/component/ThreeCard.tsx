@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import card1 from '../../assets/images/back.svg';
-import card2 from '../../assets/images/back.svg';
-import card3 from '../../assets/images/back.svg';
-import { useCardMove } from '../../hooks/useCardMove';
-import { IntroSelect } from './IntroSelect';
+import card1 from '../assets/images/back.svg';
+import card2 from '../assets/images/back.svg';
+import card3 from '../assets/images/back.svg';
+import { useCardMove } from '../hooks/useCardMove';
+import { useVisible } from '../hooks/useVisible';
+import { ThreeCardSelect } from './ThreeCardSelect';
 
-export const Intro = () => {
+interface ThreeCardProps {
+    isActive: boolean;
+}
+
+export const ThreeCard: React.FC<ThreeCardProps> = ({ isActive }) => {
+
     const cards = [card1, card2, card3];
-
     const [selectedCard, setSelectedCard] = useState<string | null>(null);
     const [selectedCardModal, setSelectedCardModal] = useState(false);
     const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
+    const { visibleClass } = useVisible()
 
     const selectCard = (card: string) => {
         setSelectedCard(card);
@@ -19,7 +25,7 @@ export const Intro = () => {
 
     return (
         <>
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className={`absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center ${isActive ? visibleClass : null} `}>
                 <div className='w-full h-4/5 flex flex-row justify-center relative'>
                     {cards.map((card, index) => (
                         <div key={index} className='flex-1 flex justify-center items-center relative'>
@@ -41,12 +47,12 @@ export const Intro = () => {
                                         filter: overlayStyles[index].filter,
                                     }}
                                 ></div>
-                            </div>
-                        </div>
+                            </div >
+                        </div >
                     ))}
-                </div>
-            </div>
-            {selectedCard && selectedCardModal && <IntroSelect card={selectedCard} close={() => {
+                </div >
+            </div >
+            {selectedCard && selectedCardModal && <ThreeCardSelect isActive={isActive} card={selectedCard} close={() => {
                 setSelectedCardModal(false)
                 window.location.reload();
             }} />}

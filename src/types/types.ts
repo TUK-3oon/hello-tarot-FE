@@ -5,6 +5,7 @@ export interface IRotationAngles {
 
 export interface IntroSelectProps {
     card: string;
+    isActive: boolean,
     close: () => void;
 }
 

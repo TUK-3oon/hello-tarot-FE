@@ -1,14 +1,28 @@
+import '../App.css';
 import React from 'react';
 import { useCardSpread } from '../hooks/useCardSpread'
-import '../App.css';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Main: React.FC = () => {
 
+    const navigate = useNavigate()
+    const [isHidden, setIsHidden] = useState(false);
     const { positions, selectedCards, visibleCards, handleCardClick, resetAnimation } = useCardSpread();
+
+    useEffect(() => {
+        if (selectedCards.length === 3) {
+            setIsHidden(true);
+            setTimeout(() => {
+                navigate('/main/select');
+            }, 100)
+        }
+
+    }, [selectedCards]);
 
     return (
         <>
-            <div className="w-full h-4/5">
+            <div className={`w-full h-4/5 transition-opacity duration-1000 ${isHidden ? 'opacity-0' : 'opacity-100'}`}>
                 <div className='w-full h-2/3 pt-10'>
                     <div className='w-24 h-32 m-auto relative bg-tarot-back bg-cover bg-center'>
                         {positions.map((card, i) => (
@@ -28,7 +42,9 @@ export const Main: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <button className='text-white' onClick={resetAnimation}>다시하기</button>
+                    <div className='text-right pr-10'>
+                        <button className='text-white' onClick={resetAnimation}>다시하기</button>
+                    </div>
                 </div>
             </div>
         </>
