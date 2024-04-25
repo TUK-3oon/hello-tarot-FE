@@ -3,14 +3,14 @@ import './App.css';
 
 import { Intro } from './pages/Intro';
 import { Main } from './pages/Main';
-import { Logo } from './component/logo';
+import { Logo } from './component/Logo';
 import { MainSelect } from './pages/MainSelect'
 
 function App() {
 
   return (
     <>
-      <div className='w-screen h-screen bg-main relative'>
+      <div className='w-screen h-screen bg-main relative cursor-default'>
         <Logo></Logo>
         <Routes>
           <Route path="/" element={<Intro></Intro>} />
