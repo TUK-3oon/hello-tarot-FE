@@ -19,7 +19,7 @@ export default {
         'tarot-back': "url('./assets/images/back.svg')"
       },
       cursor: {
-        default: 'url(./assets/images/cursor.svg), default',
+        default: 'url(./assets/images/cursor.svg), default'
       }
     },
   },
