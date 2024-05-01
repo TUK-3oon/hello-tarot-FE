@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { IntroSelectProps } from "../types/types";
 import { useVisible } from "../hooks/useVisible";
 
-export const ThreeCardSelect: React.FC<IntroSelectProps> = ({ card, close, isActive }) => {
+export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => {
 
     const navigate = useNavigate();
     const { visibleClass } = useVisible()

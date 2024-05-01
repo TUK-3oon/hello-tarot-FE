@@ -7,8 +7,7 @@ import { useVisible } from '../hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '../types/types';
 
-
-export const ThreeCard: React.FC<ThreeCardProps> = ({ isActive }) => {
+export const ThreeCard = ({ isActive }: ThreeCardProps) => {
 
     const cards = [card1, card2, card3];
     const [selectedCard, setSelectedCard] = useState<string | null>(null);
