@@ -1,4 +1,4 @@
-import { ThreeCard } from '../component/ThreeCard';
+import { ThreeCard } from '../../component/ThreeCard';
 
 export const Intro = () => {
 

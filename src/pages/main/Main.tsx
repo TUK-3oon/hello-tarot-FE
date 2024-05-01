@@ -1,5 +1,5 @@
-import '../App.css';
-import { useCardSpread } from '../hooks/useCardSpread'
+import '../../App.css';
+import { useCardSpread } from '../../hooks/useCardSpread'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,15 +10,12 @@ export const Main = () => {
     const { positions, selectedCards, visibleCards, handleCardClick, resetAnimation } = useCardSpread();
 
     useEffect(() => {
-        const MAX_SELECTED_CARD = 3
+        const MAX_SELECTED_CARD = 3;
         if (selectedCards.length === MAX_SELECTED_CARD) {
             setIsHidden(true);
-            setTimeout(() => {
-                navigate('/main/select');
-            }, 100)
+            setTimeout(() => navigate('/main/select'), 1000);
         }
-
-    }, [selectedCards]);
+    }, [selectedCards, navigate]);
 
     return (
         <div className={`w-full h-4/5 transition-opacity duration-1000 ${isHidden ? 'opacity-0' : 'opacity-100'}`}>
