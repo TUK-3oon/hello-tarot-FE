@@ -1,24 +1,18 @@
 import { Routes, Route } from 'react-router-dom'
-import './App.css';
+import { Intro } from './pages/intro/Intro';
+import { Main } from './pages/main/Main';
+import { MainSelect } from './pages/main/MainSelect'
+import { Layout } from './routes/Layout';
 
-import { Intro } from './pages/Intro';
-import { Main } from './pages/Main';
-import { Logo } from './component/logo';
-import { MainSelect } from './pages/MainSelect'
-
-function App() {
-
+const App = () => {
   return (
-    <>
-      <div className='w-screen h-screen bg-main relative'>
-        <Logo></Logo>
-        <Routes>
-          <Route path="/" element={<Intro></Intro>} />
-          <Route path="/main" element={<Main></Main>} />
-          <Route path="/main/select" element={<MainSelect></MainSelect>} />
-        </Routes>
-      </div >
-    </>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Intro></Intro>} />
+        <Route path="/main" element={<Main></Main>} />
+        <Route path="/main/select" element={<MainSelect></MainSelect>} />
+      </Route>
+    </Routes>
   );
 }
 

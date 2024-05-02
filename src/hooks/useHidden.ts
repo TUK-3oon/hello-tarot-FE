@@ -12,6 +12,5 @@ export const useHidden = <T>(state?: T) => {
         return () => clearTimeout(timer);
     }, state ? [state] : []);
 
-
     return { isHidden, isHiddenClass }
 }

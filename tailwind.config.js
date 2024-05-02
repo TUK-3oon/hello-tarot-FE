@@ -17,6 +17,9 @@ export default {
     extend: {
       backgroundImage: {
         'tarot-back': "url('./assets/images/back.svg')"
+      },
+      cursor: {
+        default: 'url(./assets/images/cursor.svg), default'
       }
     },
   },

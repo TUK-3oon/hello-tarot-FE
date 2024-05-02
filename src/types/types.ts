@@ -9,7 +9,6 @@ export interface IntroSelectProps {
     close: () => void;
 }
 
-
 export interface ISpreadCardPosition {
     x: number;
     y: number;
@@ -22,4 +21,8 @@ export interface IUseCardSpreadReturn {
     visibleCards: boolean[];
     handleCardClick: (index: number) => void;
     resetAnimation: () => void;
+}
+
+export interface ThreeCardProps {
+    isActive: boolean;
 }

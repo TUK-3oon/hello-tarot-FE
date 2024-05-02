@@ -12,12 +12,12 @@ export const useCardMove = (cards: string[]) => {
     const handleMouseMove = (index: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 
         const rect = e.currentTarget.getBoundingClientRect();
-        const maxRotation = 40;
+        const MAX_ROTATION = 40;
         const offsetX = e.clientX - rect.left;
         const offsetY = e.clientY - rect.top;
 
-        const rotationYAngle = (offsetX - rect.width / 2) / rect.width * maxRotation;
-        const rotationXAngle = (rect.height / 2 - offsetY) / rect.height * maxRotation;
+        const rotationYAngle = (offsetX - rect.width / 2) / rect.width * MAX_ROTATION;
+        const rotationXAngle = (rect.height / 2 - offsetY) / rect.height * MAX_ROTATION;
 
         const newRotationAngles = rotationAngles.slice();
         newRotationAngles[index] = { x: rotationXAngle, y: rotationYAngle };
