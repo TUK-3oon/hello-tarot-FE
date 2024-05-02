@@ -39,7 +39,7 @@ export const Main = () => {
                     ))}
                 </div>
                 <div className='text-right pr-10'>
-                    <button className='text-white' onClick={resetAnimation}>다시하기</button>
+                    <button className='text-white cursor-default' onClick={resetAnimation}>다시하기</button>
                 </div>
             </div>
         </div>

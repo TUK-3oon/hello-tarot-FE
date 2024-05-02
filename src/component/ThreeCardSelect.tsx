@@ -14,8 +14,8 @@ export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => 
                 <div className="h-full w-1/2 bg-white p-12">
                     <h1>카드 이름</h1>
                     <p className="mb-64">카드 설명</p>
-                    {isActive || <><button onClick={close}>다시하기</button><br /><br></br></>}
-                    <button onClick={() => navigate('/main')}>{isActive ? <div>다시하기</div> : <div>메인으로 이동</div>}</button>
+                    {isActive || <><button className="cursor-default" onClick={close}>다시하기</button><br /><br></br></>}
+                    <button className="cursor-default" onClick={() => navigate('/main')}>{isActive ? <div>다시하기</div> : <div>메인으로 이동</div>}</button>
                 </div>
             </div>
         </div >
