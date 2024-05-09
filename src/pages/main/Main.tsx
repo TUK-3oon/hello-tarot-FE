@@ -39,9 +39,11 @@ export const Main = () => {
                     ))}
                 </div>
                 <div className='text-right pr-10'>
-                    <button className='text-white cursor-default' onClick={resetAnimation}>다시하기</button>
+
                 </div>
             </div>
         </div>
     );
 };
+
+{/* <button className='text-white cursor-default' onClick={resetAnimation}>다시하기</button> */ }

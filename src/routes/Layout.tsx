@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Logo } from '../component/Logo';
+import { Logo } from '../components/common/Logo';
 
 export const Layout = () => {
     return (

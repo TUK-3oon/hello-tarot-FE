@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { IntroSelectProps } from "../types/types";
-import { useVisible } from "../hooks/useVisible";
+import { IntroSelectProps } from "../../types/types";
+import { useVisible } from "../../hooks/useVisible";
+import { Button } from "../ui/button";
 
 export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => {
 
@@ -16,6 +17,7 @@ export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => 
                     <p className="mb-64">카드 설명</p>
                     {isActive || <><button className="cursor-default" onClick={close}>다시하기</button><br /><br></br></>}
                     <button className="cursor-default" onClick={() => navigate('/main')}>{isActive ? <div>다시하기</div> : <div>메인으로 이동</div>}</button>
+                    <Button>hi</Button>
                 </div>
             </div>
         </div >

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import card1 from '../assets/images/back.svg';
-import card2 from '../assets/images/back.svg';
-import card3 from '../assets/images/back.svg';
-import { useCardMove } from '../hooks/useCardMove';
-import { useVisible } from '../hooks/useVisible';
+import card1 from '../../assets/images/back.svg';
+import card2 from '../../assets/images/back.svg';
+import card3 from '../../assets/images/back.svg';
+import { useCardMove } from '../../hooks/useCardMove';
+import { useVisible } from '../../hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
-import { ThreeCardProps } from '../types/types';
+import { ThreeCardProps } from '../../types/types';
 
 export const ThreeCard = ({ isActive }: ThreeCardProps) => {
 
