@@ -16,7 +16,7 @@ export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => 
             try {
                 const res = await axios.get("/card/front/all");
                 console.log(res.data)
-                // setCardImage(response.data.imageUrl);
+                setCardImage(res.data)
             } catch (error) {
                 console.error("Failed to fetch card image:", error);
             }
