@@ -2,52 +2,37 @@ import { useNavigate } from "react-router-dom";
 import { IntroSelectProps } from "../../types/types";
 import { useVisible } from "../../hooks/useVisible";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
-export const ThreeCardSelect = ({ card, close, isActive }: IntroSelectProps) => {
+export const ThreeCardSelect = ({ close, isActive, selectedCard }: IntroSelectProps) => {
 
     const navigate = useNavigate();
     const { visibleClass } = useVisible()
-    const [cardImage, setCardImage] = useState("");
-
-    useEffect(() => {
-        const fetchCardImage = async () => {
-            try {
-                const res = await axios.get("/card/front/all");
-                console.log(res.data)
-                setCardImage(res.data)
-            } catch (error) {
-                console.error("Failed to fetch card image:", error);
-            }
-        };
-
-        fetchCardImage();
-    }, []);
 
     return (
         <div className={`fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center transition-opacity duration-1000 ${visibleClass}`}>
             <div className="w-4/5 h-4/5 flex">
-                <div style={{ backgroundImage: `url(${card})` }} className="w-1/2 h-full bg-cover bg-no-repeat bg-center overflow-fit mr-5"></div>
+                <div style={{ backgroundImage: `url(${selectedCard.cardImage})` }} className="w-1/2 h-full bg-contain bg-no-repeat bg-center overflow-fit mr-5"></div>
                 <div className="h-full w-1/2 bg-white p-3 pt-6 relative">
                     <div className="h-5/6 overflow-y-auto p-5">
-                        <div className="mb-7">
-                            <h1 className="font-bold text-2xl mb-1">Card Name</h1>
-                            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <div className="mb-12 text-center">
+                            <h1 className="font-bold text-2xl mb-1">{selectedCard.cardName}</h1>
                         </div>
                         <div className="mb-7">
-                            <h1 className="font-bold text-2xl mb-1">Card Description</h1>
-                            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <h1 className="font-bold text-lg mb-1">Good</h1>
+                            <p>{selectedCard.cardContent.front}</p>
                         </div>
                         <div className="mb-7">
-                            <h1 className="font-bold text-2xl mb-1">Test</h1>
-                            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <h1 className="font-bold text-lg mb-1">Bad</h1>
+                            <p>{selectedCard.cardContent.back}</p>
                         </div>
                     </div>
                     <div className="h-1/6 flex justify-end items-center p-5">
-                        {isActive || <Button className="cursor-default bg-main m-3" onClick={close}>Retry</Button>}
-                        <Button className="cursor-default bg-main" onClick={() => navigate('/main')}>
-                            {isActive ? <div>Retry</div> : <div>Go to Main</div>}
+                        {isActive || <Button className="cursor-default bg-main m-3 hover:bg-main-darker" onClick={close}>Retry</Button>}
+                        <Button className="cursor-default bg-main hover:bg-main-darker" onClick={() => navigate('/main')}>
+                            {isActive
+                                ? <>Retry
+                                </>
+                                : <div>Go to Main</div>}
                         </Button>
                     </div>
                 </div>

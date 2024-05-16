@@ -9,10 +9,10 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   server: {
     proxy: {
-      "/card": {  // Use "/card" to match the start of your actual API path
+      "/card": {
         target: "http://localhost:8000",
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/card/, '/card') // Optional rewrite
+        rewrite: path => path.replace(/^\/card/, '/card')
       }
     }
   },
