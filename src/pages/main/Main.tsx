@@ -2,7 +2,6 @@ import '../../App.css';
 import { useCardSpread } from '../../hooks/useCardSpread'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu } from '@/components/common/Menu';
 
 export const Main = () => {
 
@@ -32,15 +31,15 @@ export const Main = () => {
                 </div>
             </div>
             <div className='w-full h-1/3 pb-10'>
-                <div className='w-1/2 h-full bg-main-darker m-auto flex justify-start items-center p-4 rounded-lg shadow-lg'>
+                <div className='w-1/2 h-full border border-logo m-auto flex justify-start'>
                     {selectedCards.map((i) => (
-                        <div key={i} className='h-full w-1/3 flex flex-col justify-center items-center'>
-                            <div className='w-28 h-32 bg-tarot-back bg-cover bg-center mb-2'></div>
+                        <div key={i} className={`h-full w-1/3 flex justify-center items-center flex-row`} >
+                            <div className='w-28 h-32 bg-tarot-back bg-cover bg-center'></div>
                         </div>
                     ))}
                 </div>
-                <div className='text-right'>
-                    <Menu resetAnimation={resetAnimation}></Menu>
+                <div className='text-right pr-10'>
+                    <button className='text-white cursor-default' onClick={resetAnimation}>다시하기</button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { ThreeCard } from '../../components/common/ThreeCard';
+import { ThreeCard } from '../../component/ThreeCard';
 
 export const MainSelect = () => {
     return (
