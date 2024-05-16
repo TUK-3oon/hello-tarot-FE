@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import card1 from '../../assets/images/back.svg';
 import card2 from '../../assets/images/back.svg';
 import card3 from '../../assets/images/back.svg';
@@ -6,6 +6,7 @@ import { useCardMove } from '../../hooks/useCardMove';
 import { useVisible } from '../../hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '../../types/types';
+import { getRandomNumber } from '@/utils/getRandoNumber';
 
 export const ThreeCard = ({ isActive }: ThreeCardProps) => {
 
@@ -14,11 +15,20 @@ export const ThreeCard = ({ isActive }: ThreeCardProps) => {
     const [selectedCardModal, setSelectedCardModal] = useState(false);
     const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
     const { visibleClass } = useVisible()
+    const [randomNum, setRandomNum] = useState(0)
 
     const selectCard = (card: string) => {
         setSelectedCard(card);
         setSelectedCardModal(true);
     };
+
+
+    useEffect(() => {
+        if (!selectedCardModal) {
+            const randomNum = getRandomNumber(8)
+            setRandomNum(randomNum)
+        }
+    }, [selectedCardModal]);
 
     return (
         <>
@@ -26,7 +36,7 @@ export const ThreeCard = ({ isActive }: ThreeCardProps) => {
                 <div className='w-full h-4/5 flex flex-row justify-center relative'>
                     {cards.map((card, index) => (
                         <div key={index} className='flex-1 flex justify-center items-center relative'>
-                            <div className='w-4/5 h-4/5 mx-auto relative cursor-pointer bg-cover bg-no-repeat bg-center'
+                            <div className='w-4/5 h-4/5 mx-auto relative cursor-default bg-cover bg-no-repeat bg-center'
                                 onMouseMove={(e) => handleMouseMove(index, e)}
                                 onMouseLeave={() => handleMouseLeave(index)}
                                 onClick={() => selectCard(card)}
@@ -47,7 +57,7 @@ export const ThreeCard = ({ isActive }: ThreeCardProps) => {
                 </div>
             </div>
 
-            {selectedCard && selectedCardModal && <ThreeCardSelect isActive={isActive} card={selectedCard} close={() => {
+            {selectedCard && selectedCardModal && <ThreeCardSelect isActive={isActive} card={selectedCard} randomNum={randomNum} close={() => {
                 setSelectedCardModal(false)
                 window.location.reload();
             }} />}
