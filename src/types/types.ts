@@ -2,9 +2,21 @@ export interface IRotationAngles {
     x: number;
     y: number;
 }
+interface ICardContent {
+    front: string;
+    back: string;
+}
+
+interface ISelectedCard {
+    cardId: string;
+    cardName: string;
+    cardNumber: number;
+    cardImage: string;
+    cardContent: ICardContent;
+}
 
 export interface IntroSelectProps {
-    card: string;
+    selectedCard: ISelectedCard;
     isActive: boolean,
     close: () => void;
 }
