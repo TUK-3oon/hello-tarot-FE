@@ -1,14 +1,15 @@
 import '../../App.css';
-import { useCardSpread } from '../../hooks/useCardSpread'
+import { useCardSpread } from '../../hooks/useCardSpread';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from '@/components/common/Menu';
 
 export const Main = () => {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [isHidden, setIsHidden] = useState(false);
+    const [gameType, setGameType] = useState('love');
     const { positions, selectedCards, visibleCards, handleCardClick, resetAnimation } = useCardSpread();
+    console.log(gameType);
 
     useEffect(() => {
         const MAX_SELECTED_CARD = 3;
@@ -17,6 +18,11 @@ export const Main = () => {
             setTimeout(() => navigate('/main/select'), 1000);
         }
     }, [selectedCards, navigate]);
+
+    const handleGameTypeChange = (newGameType: string) => {
+        setGameType(newGameType);
+        resetAnimation();
+    };
 
     return (
         <div className={`w-full h-4/5 transition-opacity duration-1000 ${isHidden ? 'opacity-0' : 'opacity-100'}`}>
@@ -40,7 +46,7 @@ export const Main = () => {
                     ))}
                 </div>
                 <div className='text-right'>
-                    <Menu resetAnimation={resetAnimation}></Menu>
+                    <Menu resetAnimation={resetAnimation} onGameTypeChange={handleGameTypeChange} initialGameType={gameType} />
                 </div>
             </div>
         </div>
