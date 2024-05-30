@@ -7,13 +7,13 @@ import { useState, useEffect } from "react";
 
 interface INavProps {
     resetAnimation: () => void;
-    onGameTypeChange: (newGameType: string) => void;
+    onGameTypeChange: (newGameType: string, newGameTypeId: string) => void;
     initialGameType: string;
 }
 
 export const Menu = ({ resetAnimation, onGameTypeChange, initialGameType }: INavProps) => {
     const navigate = useNavigate();
-    const [gameType, setGameType] = useState(initialGameType);
+    const [gameType, setGameType] = useState<string>(initialGameType);
 
     useEffect(() => {
         const changeGameType = async () => {
@@ -22,6 +22,7 @@ export const Menu = ({ resetAnimation, onGameTypeChange, initialGameType }: INav
                     game_type_name: gameType
                 });
                 console.log(res.data);
+                onGameTypeChange(gameType, res.data.game_type_id); 
             } catch (error) {
                 console.error("gameType error", error);
             }
@@ -31,7 +32,7 @@ export const Menu = ({ resetAnimation, onGameTypeChange, initialGameType }: INav
 
     const handleGameType = (type: string) => {
         setGameType(type);
-        onGameTypeChange(type);
+        resetAnimation();
     };
 
     return (
