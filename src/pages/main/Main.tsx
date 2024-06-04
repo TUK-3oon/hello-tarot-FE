@@ -10,7 +10,6 @@ export const Main = () => {
   const navigate = useNavigate();
   const { gameType, setGameType } = useGameType();
   const [gameTypeId, setGameTypeId] = useState<string | null>(null);
-  const [gameId, setGameId] = useState<string | null>(null);
   const [isHidden, setIsHidden] = useState(false);
   const {
     positions,
@@ -19,14 +18,17 @@ export const Main = () => {
     handleCardClick: originalHandleCardClick,
     resetAnimation,
   } = useCardSpread();
-
-  console.log("gameTypeId",gameTypeId)
+  const [gameData, setGameData] = useState({
+    gameId: '',
+    question:''
+  })
+  console.log(gameData)
 
   useEffect(() => {
     const MAX_SELECTED_CARD = 3;
     if (selectedCards.length === MAX_SELECTED_CARD) {
       setIsHidden(true);
-      setTimeout(() => navigate('/main/select'), 1000);
+      setTimeout(() => navigate('/main/select', { state: { gameData } }), 1000);
     }
   }, [selectedCards, navigate]);
 
@@ -39,12 +41,11 @@ export const Main = () => {
   const handleCardClick = async (cardIndex: number) => {
     if (selectedCards.length === 0 && gameTypeId) {
       try {
-        const response = await axios.post('/game/start/', {
+        const res = await axios.post('/game/start/', {
           game_type_id: gameTypeId,
         });
-        console.log(response.data);
-        console.log('Game started with ID:', response.data.game_id);
-        console.log('Game question:', response.data.game_quest);
+        setGameData(res.data)
+        
       } catch (error) {
         console.error('Error starting game:', error);
         return;
