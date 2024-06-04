@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ISpreadCardPosition, IUseCardSpreadReturn } from '../types/types';
 
+const MAX_SELECTED_CARD = 3;
+
 export const useCardSpread = (): IUseCardSpreadReturn => {
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
   const [positions, setPositions] = useState<ISpreadCardPosition[]>([]);
@@ -33,7 +35,6 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
     });
 
   const handleCardClick = (index: number): void => {
-    const MAX_SELECTED_CARD = 3;
     if (selectedCards.length < MAX_SELECTED_CARD) {
       setSelectedCards([...selectedCards, index]);
       setVisibleCards(

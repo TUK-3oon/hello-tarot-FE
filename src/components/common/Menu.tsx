@@ -1,36 +1,32 @@
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from "@/components/ui/menubar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { changeGameType as changeGameTypeApi } from '@/apis/game';
 
 interface INavProps {
     resetAnimation: () => void;
-    onGameTypeChange: (newGameType: string, newGameTypeId: string) => void;
+    handleGameTypeChange: (newGameType: string, newGameTypeId: string) => void;
     initialGameType: string;
 }
 
-export const Menu = ({ resetAnimation, onGameTypeChange, initialGameType }: INavProps) => {
-    const navigate = useNavigate();
+export const Menu = ({ resetAnimation, handleGameTypeChange, initialGameType }: INavProps) => {
+    
     const [gameType, setGameType] = useState<string>(initialGameType);
 
     useEffect(() => {
         const changeGameType = async () => {
-            try {
-                const res = await axios.post("/game/rule/", {
-                    game_type_name: gameType
-                });
-                console.log(res.data);
-                onGameTypeChange(gameType, res.data.game_type_id); 
-            } catch (error) {
-                console.error("gameType error", error);
-            }
+           try {
+            const data = await changeGameTypeApi(gameType);
+            handleGameTypeChange(gameType, data.game_type_id);
+        } catch (error) {
+            console.error("gameType error", error);
+        }
         };
         changeGameType();
     }, [gameType]);
 
-    const handleGameType = (type: string) => {
+    const handleOnClickMenu = (type: string) => {
         setGameType(type);
         resetAnimation();
     };
@@ -43,13 +39,13 @@ export const Menu = ({ resetAnimation, onGameTypeChange, initialGameType }: INav
                         <FontAwesomeIcon icon={faBars} size="lg" />
                     </MenubarTrigger>
                     <MenubarContent>
-                        <MenubarItem onClick={() => handleGameType('love')}>Love</MenubarItem>
+                        <MenubarItem onClick={() => handleOnClickMenu('love')}>Love</MenubarItem>
                         <MenubarSeparator />
-                        <MenubarItem onClick={() => handleGameType('health')}>Health</MenubarItem>
+                        <MenubarItem onClick={() => handleOnClickMenu('health')}>Health</MenubarItem>
                         <MenubarSeparator />
-                        <MenubarItem onClick={() => handleGameType('fortune')}>Fortune</MenubarItem>
+                        <MenubarItem onClick={() => handleOnClickMenu('fortune')}>Fortune</MenubarItem>
                         <MenubarSeparator />
-                        <MenubarItem onClick={() => navigate('/info')}>Info</MenubarItem>
+                        <MenubarItem>Info</MenubarItem>
                         <MenubarSeparator />
                         <MenubarItem onClick={resetAnimation}>Retry</MenubarItem>
                     </MenubarContent>

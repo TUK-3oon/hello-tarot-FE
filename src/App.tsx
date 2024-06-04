@@ -13,7 +13,6 @@ const App = () => {
           <Route path="/" element={<Intro />} />
           <Route path="/main" element={<Main />} />
           <Route path="/main/select" element={<MainSelect />} />
-          {/* <Route path="/info" element={<Info />} /> */}
         </Route>
       </Routes>
     </GameTypeProvider>

@@ -49,7 +49,7 @@ export const ThreeCardSelect = ({
               className="cursor-default bg-main hover:bg-main-darker"
               onClick={() => navigate('/main')}
             >
-              {isActive ? <>Retry</> : <div>Go to Main</div>}
+              {isActive ? <div>Retry</div> : <div>Go to Main</div>}
             </Button>
           </div>
         </div>

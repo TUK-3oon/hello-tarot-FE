@@ -37,5 +37,5 @@ export interface IUseCardSpreadReturn {
 
 export interface ThreeCardProps {
   isActive: boolean;
-  question: string;
+  question?: string;
 }

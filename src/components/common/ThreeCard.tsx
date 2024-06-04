@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import cardBackImage from '../../assets/images/back.svg';
 import { useCardMove } from '../../hooks/useCardMove';
@@ -6,13 +5,13 @@ import { useVisible } from '../../hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '../../types/types';
 import { getRandomNumber } from '@/utils/getRandoNumber';
+import { getAllCards } from '@/apis/card';
 
 export const ThreeCard = ({ isActive, question }: ThreeCardProps) => {
   const cards = Array(3).fill(cardBackImage);
   const [randomNum, setRandomNum] = useState(0);
   const [selectedCardModal, setSelectedCardModal] = useState(false);
-  const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } =
-    useCardMove(cards);
+  const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
   const { visibleClass } = useVisible();
   const [selectedCard, setSelectedCard] = useState({
     cardId: '',
@@ -35,8 +34,8 @@ export const ThreeCard = ({ isActive, question }: ThreeCardProps) => {
   useEffect(() => {
     const getSelectedCard = async () => {
       try {
-        const res = await axios.get('/card/front/all');
-        const firstCard = res.data[randomNum];
+        const data = await getAllCards();
+        const firstCard = data[randomNum];
         setSelectedCard({
           cardId: firstCard.card_id,
           cardName: firstCard.card_name,

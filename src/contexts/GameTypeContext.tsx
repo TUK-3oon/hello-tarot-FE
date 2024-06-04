@@ -1,16 +1,16 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 
 interface GameTypeContextProps {
-  gameType: string;
-  setGameType: (newGameType: string) => void;
+  gameTypeName: string;
+  setGameTypeName: (newGameType: string) => void;
 }
 
 const GameTypeContext = createContext<GameTypeContextProps | undefined>(undefined);
 
 const GameTypeProvider = ({ children }: { children: ReactNode }) => {
-  const [gameType, setGameType] = useState('love');
+  const [gameTypeName, setGameTypeName] = useState('love');
   return (
-    <GameTypeContext.Provider value={{ gameType, setGameType }}>
+    <GameTypeContext.Provider value={{ gameTypeName, setGameTypeName }}>
       {children}
     </GameTypeContext.Provider>
   );
