@@ -56,9 +56,6 @@ export const ThreeCard = ({ isActive, question }: ThreeCardProps) => {
   return (
     <>
       <div className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center ${isActive && visibleClass}`}>
-        <div className="mb-5 text-white text-2xl text-center">
-          {question}
-        </div>
         <div className="w-full h-4/5 flex flex-row justify-center relative">
           {cards.map((card, index) => (
             <div
@@ -86,6 +83,9 @@ export const ThreeCard = ({ isActive, question }: ThreeCardProps) => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mb-5 text-white text-2xl text-center">
+          {question}
         </div>
       </div>
 
