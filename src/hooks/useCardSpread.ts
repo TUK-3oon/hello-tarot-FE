@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { ISpreadCardPosition, IUseCardSpreadReturn } from '../types/types';
 
 const MAX_SELECTED_CARD = 3;
+const SPREAD_CARD_NUM = 12;
 
 export const useCardSpread = (): IUseCardSpreadReturn => {
   const [isAnimated, setIsAnimated] = useState<boolean>(false);
   const [positions, setPositions] = useState<ISpreadCardPosition[]>([]);
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
-  const [visibleCards, setVisibleCards] = useState<boolean[]>(
-    Array(12).fill(true)
-  );
+  const [visibleCards, setVisibleCards] = useState<boolean[]>(Array(SPREAD_CARD_NUM).fill(true));
 
   useEffect(() => {
     const timer = setTimeout(() => setIsAnimated(true), 500);
@@ -17,19 +16,19 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
   }, []);
 
   useEffect(() => {
-    const initialPositions = Array.from({ length: 12 }, (_, i) => ({
+    const initialPositions = Array.from({ length: SPREAD_CARD_NUM }, (_, i) => ({
       x: i,
       y: i,
     }));
     setPositions(isAnimated ? spread() : initialPositions);
     if (!isAnimated) {
-      setVisibleCards(Array(12).fill(true));
+      setVisibleCards(Array(SPREAD_CARD_NUM).fill(true));
       setSelectedCards([]);
     }
   }, [isAnimated]);
 
   const spread = (): ISpreadCardPosition[] =>
-    Array.from({ length: 12 }, (_, i) => {
+    Array.from({ length: SPREAD_CARD_NUM }, (_, i) => {
       const angle = (180 / 11) * i * (Math.PI / 180);
       return { x: 600 * Math.cos(angle), y: 200 * Math.sin(angle) };
     });

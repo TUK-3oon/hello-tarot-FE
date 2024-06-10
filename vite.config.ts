@@ -9,18 +9,17 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   server: {
     proxy: {
-      "/card": {
-        target: "http://localhost:8000",
+      '/card': {
+        target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/card/, '/card')
+        rewrite: (path) => path.replace(/^\/card/, '/card'),
       },
-      "/game": {
-        target: "http://localhost:8000",
+      '/game': {
+        target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/game/, '/game')
-      }
+        rewrite: (path) => path.replace(/^\/game/, '/game'),
+      },
     },
-    
   },
   plugins: [react()],
   resolve: {

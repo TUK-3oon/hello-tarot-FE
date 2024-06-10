@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { startGame as startGameApi } from '@/apis/game';
+import { startGameApi } from '@/apis/game';
 
 export const useStartGame = () => {
   const [gameData, setGameData] = useState({ gameId: '', question: '' });

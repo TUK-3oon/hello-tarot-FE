@@ -1,22 +1,29 @@
+import { ICardData } from "./apisTypes";
+
+//Logo.tsx
+export interface LogoProps {
+  gameType: string;
+}
+
+export interface ILogoName {
+  [key: string]: string;
+}
+
+//Menu.tsx
+export interface IMenuProps {
+  resetAnimation: () => void;
+  handleGameTypeChange: (newGameType: string, newGameTypeId: string) => void;
+  initialGameType: string;
+}
+
 export interface IRotationAngles {
   x: number;
   y: number;
 }
-interface ICardContent {
-  front: string;
-  back: string;
-}
 
-interface ISelectedCard {
-  cardId: string;
-  cardName: string;
-  cardNumber: number;
-  cardImage: string;
-  cardContent: ICardContent;
-}
 
-export interface IntroSelectProps {
-  selectedCard: ISelectedCard;
+export interface ThreeCardSelectProps {
+  selectedCard: ICardData
   isActive: boolean;
   close: () => void;
 }
@@ -38,4 +45,5 @@ export interface IUseCardSpreadReturn {
 export interface ThreeCardProps {
   isActive: boolean;
   question?: string;
+  randomCards?: ICardData[]
 }

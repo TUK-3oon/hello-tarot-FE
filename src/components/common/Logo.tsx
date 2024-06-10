@@ -1,18 +1,11 @@
 import logo from '../../assets/images/logo.svg';
+import { ILogoName, LogoProps } from '@/types/types';
 
-interface LogoProps {
-  gameType: string;
-}
-
-interface ILogoName{
-  [key: string] : string
-}
-
-const logoName : ILogoName = {
-  love : "Love Tarot",
-  health : "Health Tarot",
-  fortune : "Fortune Tarot"
-}
+const logoName: ILogoName = {
+  love: 'Love Tarot',
+  health: 'Health Tarot',
+  fortune: 'Fortune Tarot',
+};
 
 export const Logo = ({ gameType }: LogoProps) => {
   return (
