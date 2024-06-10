@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ISpreadCardPosition, IUseCardSpreadReturn } from '../types/types';
+import { ISpreadCardPosition, IUseCardSpreadReturn } from '../types/hooksTypes';
 
 const MAX_SELECTED_CARD = 3;
 const SPREAD_CARD_NUM = 12;

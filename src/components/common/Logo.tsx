@@ -1,5 +1,5 @@
 import logo from '../../assets/images/logo.svg';
-import { ILogoName, LogoProps } from '@/types/types';
+import { ILogoName, LogoProps } from '@/types/componentsTypes';
 
 const logoName: ILogoName = {
   love: 'Love Tarot',

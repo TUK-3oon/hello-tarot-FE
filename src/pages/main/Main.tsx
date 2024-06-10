@@ -1,15 +1,14 @@
-import '../../App.css';
-import { useCardSpread } from '../../hooks/useCardSpread';
+import '@/App.css';
+import { useCardSpread } from '@/hooks/useCardSpread';
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from '@/components/common/Menu';
-import { useGameType } from '../../contexts/GameTypeContext';
+import { useGameType } from '@/contexts/GameTypeContext';
 import { useStartGame } from '@/hooks/useStartGame';
 import { getRandomNumber } from '@/utils/getRandomNumber';
 import { getAllCards } from '@/apis/card';
 import { ICardData } from '@/types/apisTypes';
-
-const MAX_SELECTED_CARD = 3;
+import { MAX_SELECTED_CARD } from '@/utils/constants';
 
 export const Main = () => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ export const Main = () => {
   const { gameTypeName, setGameTypeName } = useGameType();
   const { gameData, startGame } = useStartGame();
 
-  const getRandomCardData = async () => {
+  const getRandomCardData = useCallback(async () => {
     try {
       const allCardData: ICardData[] = await getAllCards();
       const MAX_CARD_LENGTH = allCardData.length - 1;
@@ -29,7 +28,7 @@ export const Main = () => {
       console.error('getRandomCardData error', error);
       return [];
     }
-  };
+  },[]);
 
   useEffect(() => {
     if (selectedCards.length === MAX_SELECTED_CARD) {

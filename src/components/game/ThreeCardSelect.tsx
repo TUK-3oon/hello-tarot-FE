@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { ThreeCardSelectProps } from '../../types/types';
-import { useVisible } from '../../hooks/useVisible';
+import { ThreeCardSelectProps } from '@/types/componentsTypes';
+import { useVisible } from '@/hooks/useVisible';
 import { Button } from '../ui/button';
+import { Error } from '../common/Error';
 
 export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSelectProps) => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSele
   
   if(!selectedCard){
     return(
-        <div>에러</div>
+        <Error/>
     )
   }
 

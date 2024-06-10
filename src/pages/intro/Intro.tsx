@@ -1,10 +1,9 @@
-import { ThreeCard } from '../../components/common/ThreeCard';
+import { ThreeCard } from '../../components/game/ThreeCard';
 import { ICardData } from '@/types/apisTypes';
 import { getAllCards } from '@/apis/card';
 import { getRandomNumber } from '@/utils/getRandomNumber';
 import { useEffect, useState } from 'react';
-
-const MAX_SELECTED_CARD = 3;
+import { MAX_SELECTED_CARD } from '@/utils/constants';
 
 export const Intro = () => {
   const [cardData, setCardData] = useState<ICardData[]>([]);

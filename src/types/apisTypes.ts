@@ -1,4 +1,4 @@
-//card.ts
+//api/card.ts
 export interface ICardData {
     card_id: string;
     card_name: string;

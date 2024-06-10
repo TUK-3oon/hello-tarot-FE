@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import { changeGameTypeApi } from '@/apis/game';
-import { IMenuProps } from '@/types/types';
+import { IMenuProps } from '@/types/componentsTypes';
 
 export const Menu = ({ resetAnimation, handleGameTypeChange, initialGameType }: IMenuProps) => {
   const [gameType, setGameType] = useState<string>(initialGameType);
