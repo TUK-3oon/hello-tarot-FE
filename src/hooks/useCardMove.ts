@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IRotationAngles } from '../types/types';
+import { IRotationAngles } from '../types/hooksTypes';
 
 export const useCardMove = (cards: string[]) => {
   const [rotationAngles, setRotationAngles] = useState<IRotationAngles[]>(

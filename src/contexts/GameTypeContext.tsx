@@ -5,7 +5,9 @@ interface GameTypeContextProps {
   setGameTypeName: (newGameType: string) => void;
 }
 
-const GameTypeContext = createContext<GameTypeContextProps | undefined>(undefined);
+const GameTypeContext = createContext<GameTypeContextProps | undefined>(
+  undefined
+);
 
 const GameTypeProvider = ({ children }: { children: ReactNode }) => {
   const [gameTypeName, setGameTypeName] = useState('love');

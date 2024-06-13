@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { IntroSelectProps } from '../../types/types';
-import { useVisible } from '../../hooks/useVisible';
+import { ThreeCardSelectProps } from '@/types/componentsTypes';
+import { useVisible } from '@/hooks/useVisible';
 import { Button } from '../ui/button';
+import { Error } from '../common/Error';
 
-export const ThreeCardSelect = ({
-  close,
-  isActive,
-  selectedCard,
-}: IntroSelectProps) => {
+export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSelectProps) => {
   const navigate = useNavigate();
   const { visibleClass } = useVisible();
+  const handleClickGoToMainBtn = () => navigate('/main');
+  
+  if(!selectedCard){
+    return(
+        <Error/>
+    )
+  }
 
   return (
     <div
@@ -17,37 +21,34 @@ export const ThreeCardSelect = ({
     >
       <div className="w-4/5 h-4/5 flex">
         <div
-          style={{ backgroundImage: `url(${selectedCard.cardImage})` }}
+          style={{ backgroundImage: `url(${selectedCard.card_image_url})` }}
           className="w-1/2 h-full bg-contain bg-no-repeat bg-center overflow-fit mr-5"
         ></div>
         <div className="h-full w-1/2 bg-white p-3 pt-6 relative">
           <div className="h-5/6 overflow-y-auto p-5">
             <div className="mb-12 text-center">
               <h1 className="font-bold text-2xl mb-1">
-                {selectedCard.cardName}
+                {selectedCard.card_name}
               </h1>
             </div>
             <div className="mb-7">
               <h1 className="font-bold text-lg mb-1">Good</h1>
-              <p>{selectedCard.cardContent.front}</p>
+              <p>{selectedCard.card_contents.forward}</p>
             </div>
             <div className="mb-7">
               <h1 className="font-bold text-lg mb-1">Bad</h1>
-              <p>{selectedCard.cardContent.back}</p>
+              <p>{selectedCard.card_contents.reverse}</p>
             </div>
           </div>
           <div className="h-1/6 flex justify-end items-center p-5">
             {isActive || (
-              <Button
-                className="cursor-default bg-main m-3 hover:bg-main-darker"
-                onClick={close}
-              >
+              <Button className="cursor-default bg-main m-3 hover:bg-main-darker" onClick={close}>
                 Retry
               </Button>
             )}
             <Button
               className="cursor-default bg-main hover:bg-main-darker"
-              onClick={() => navigate('/main')}
+              onClick={handleClickGoToMainBtn}
             >
               {isActive ? <div>Retry</div> : <div>Go to Main</div>}
             </Button>
