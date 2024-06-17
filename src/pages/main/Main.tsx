@@ -13,7 +13,7 @@ import { MAX_SELECTED_CARD } from '@/utils/constants';
 export const Main = () => {
   const navigate = useNavigate();
   const [isHidden, setIsHidden] = useState(false);
-  const [gameTypeId, setGameTypeId] = useState<string | null>(null);
+  const [gameTypeId, setGameTypeId] = useState<string>('');
   const { positions, selectedCards, visibleCards, handleCardClick: handleCardSelect, resetAnimation } = useCardSpread();
   const { gameTypeName, setGameTypeName } = useGameType();
   const { gameData, startGame } = useStartGame();
@@ -21,8 +21,7 @@ export const Main = () => {
   const getRandomCardData = useCallback(async () => {
     try {
       const allCardData: ICardData[] = await getAllCards();
-      const MAX_CARD_LENGTH = allCardData.length - 1;
-      const randomNums = getRandomNumber(MAX_CARD_LENGTH, MAX_SELECTED_CARD); 
+      const randomNums = getRandomNumber(allCardData.length - 1, MAX_SELECTED_CARD); 
       return randomNums.map((num: number) => allCardData[num]);
     } catch (error) {
       console.error('getRandomCardData error', error);
@@ -32,6 +31,7 @@ export const Main = () => {
 
   useEffect(() => {
     if (selectedCards.length === MAX_SELECTED_CARD) {
+      console.log('game end')
       setIsHidden(true);
       getRandomCardData().then((randomCards) => {
         setTimeout(() => navigate('/main/select', { state: { gameData, randomCards } }), 1000);
@@ -43,13 +43,16 @@ export const Main = () => {
       setGameTypeName(newGameType);
       setGameTypeId(newGameTypeId);
       resetAnimation();
+      
     },
+    
     [resetAnimation, setGameTypeName]
   );
 
   const handleCardClick = useCallback(
     async (cardIndex: number) => {
       if (selectedCards.length === 0 && gameTypeId) {
+        console.log('start api')
         await startGame(gameTypeId);
       }
       handleCardSelect(cardIndex);

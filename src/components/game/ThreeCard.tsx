@@ -5,19 +5,28 @@ import { useVisible } from '@/hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '@/types/componentsTypes';
 import { CARD_NUM } from '@/utils/constants';
-import { Error } from '../common/Error';
+import { endGameApi } from '@/apis/game';
 
-export const ThreeCard = ({ isActive, question, randomCards }: ThreeCardProps) => {
+export const ThreeCard = ({ isActive, gameData, randomCards }: ThreeCardProps) => {
   const cards = Array(CARD_NUM).fill(cardBackImage);
   const [selectedCardModal, setSelectedCardModal] = useState(false);
   const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
   const { visibleClass } = useVisible();
 
-  if (!randomCards || randomCards.length === 0) {
-    return(
-      <Error/>
-    )
-  }
+  const handleSelectCard = async () => {
+    if (randomCards && gameData) {
+      try {
+        const res = await endGameApi(gameData.game_id, randomCards);
+        console.log(res);
+      } catch (error) {
+        console.error('Error ending game:', error);
+      }
+    } else {
+      console.log('Intro Game');
+    }
+    setSelectedCardModal(true);
+  };
+  
 
   return (
     <>
@@ -31,7 +40,7 @@ export const ThreeCard = ({ isActive, question, randomCards }: ThreeCardProps) =
                 className="w-4/5 h-4/5 mx-auto relative cursor-default bg-cover bg-no-repeat bg-center"
                 onMouseMove={(e) => handleMouseMove(index, e)}
                 onMouseLeave={() => handleMouseLeave(index)}
-                onClick={() => setSelectedCardModal(true)}
+                onClick={handleSelectCard}
                 style={{
                   transform: `perspective(1000px) rotateY(${rotationAngles[index].y}deg) rotateX(${rotationAngles[index].x}deg)`,
                   backgroundImage: `url(${card})`,
@@ -49,7 +58,9 @@ export const ThreeCard = ({ isActive, question, randomCards }: ThreeCardProps) =
             </div>
           ))}
         </div>
-        <div className="mb-5 text-white text-2xl text-center">{question}</div>
+        { gameData &&
+          <div className="mb-5 text-white text-2xl text-center">{gameData.game_question}</div>
+        }
       </div>
 
       {selectedCardModal && (

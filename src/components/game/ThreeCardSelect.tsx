@@ -2,18 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { ThreeCardSelectProps } from '@/types/componentsTypes';
 import { useVisible } from '@/hooks/useVisible';
 import { Button } from '../ui/button';
-import { Error } from '../common/Error';
 
 export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSelectProps) => {
   const navigate = useNavigate();
   const { visibleClass } = useVisible();
   const handleClickGoToMainBtn = () => navigate('/main');
-  
-  if(!selectedCard){
-    return(
-        <Error/>
-    )
-  }
 
   return (
     <div
