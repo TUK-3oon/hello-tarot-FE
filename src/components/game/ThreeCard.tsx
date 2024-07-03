@@ -14,19 +14,8 @@ export const ThreeCard = ({ isActive, gameData, randomCards }: ThreeCardProps) =
   const { visibleClass } = useVisible();
 
   const handleSelectCard = async () => {
-    if (randomCards && gameData) {
-      try {
-        const res = await endGameApi(gameData.game_id, randomCards);
-        console.log(res);
-      } catch (error) {
-        console.error('Error ending game:', error);
-      }
-    } else {
-      console.log('Intro Game');
-    }
     setSelectedCardModal(true);
   };
-  
 
   return (
     <>

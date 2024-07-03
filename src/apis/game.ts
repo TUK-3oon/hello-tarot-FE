@@ -21,7 +21,7 @@ export const endGameApi = async (gameId: string, selectedCardData: ICardData[])=
     select_card_id: selectedCardData[0].card_id,
     all_select_card_id: {
         primary_select_card_id: selectedCardData[0].card_id,
-        sceondary_select_card_id: selectedCardData[1].card_id,
+        secondary_select_card_id: selectedCardData[1].card_id,
         tertiary_select_card_id: selectedCardData[2].card_id
     }
   })

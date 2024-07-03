@@ -31,7 +31,6 @@ export const Main = () => {
 
   useEffect(() => {
     if (selectedCards.length === MAX_SELECTED_CARD) {
-      console.log('game end')
       setIsHidden(true);
       getRandomCardData().then((randomCards) => {
         setTimeout(() => navigate('/main/select', { state: { gameData, randomCards } }), 1000);
@@ -43,17 +42,16 @@ export const Main = () => {
       setGameTypeName(newGameType);
       setGameTypeId(newGameTypeId);
       resetAnimation();
-      
     },
-    
     [resetAnimation, setGameTypeName]
   );
 
   const handleCardClick = useCallback(
     async (cardIndex: number) => {
-      if (selectedCards.length === 0 && gameTypeId) {
-        console.log('start api')
+      if (selectedCards.length === 0) {
         await startGame(gameTypeId);
+      }else{
+        console.log('error')
       }
       handleCardSelect(cardIndex);
     },

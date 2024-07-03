@@ -6,8 +6,5 @@ export const MainSelect = () => {
   const gameData = location.state.gameData;
   const randomCards = location.state.randomCards
 
-  console.log('gameData', gameData)
-  console.log('randomCards', randomCards)
-
   return <ThreeCard isActive={true} gameData={gameData}  randomCards={randomCards}></ThreeCard>
 };
