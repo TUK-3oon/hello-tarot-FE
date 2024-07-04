@@ -6,5 +6,5 @@ export const MainSelect = () => {
   const gameData = location.state.gameData;
   const randomCards = location.state.randomCards
 
-  return <ThreeCard isActive={true} gameData={gameData}  randomCards={randomCards}></ThreeCard>
+  return <ThreeCard isActive={true} gameData={gameData} randomCards={randomCards}></ThreeCard>
 };

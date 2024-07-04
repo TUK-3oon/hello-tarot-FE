@@ -21,7 +21,7 @@ export interface ThreeCardProps {
     isActive: boolean;
     gameData?: {
         game_id:string;
-        game_question:string;
+        game_quest:string;
     };
     randomCards: ICardData[]
 }

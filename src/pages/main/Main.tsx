@@ -5,29 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import { Menu } from '@/components/common/Menu';
 import { useGameType } from '@/contexts/GameTypeContext';
 import { useStartGame } from '@/hooks/useStartGame';
-import { getRandomNumber } from '@/utils/getRandomNumber';
-import { getAllCards } from '@/apis/card';
-import { ICardData } from '@/types/apisTypes';
 import { MAX_SELECTED_CARD } from '@/utils/constants';
+import { getRandomCardData } from '@/utils/getRandomCard';
 
 export const Main = () => {
+
   const navigate = useNavigate();
   const [isHidden, setIsHidden] = useState(false);
   const [gameTypeId, setGameTypeId] = useState<string>('');
   const { positions, selectedCards, visibleCards, handleCardClick: handleCardSelect, resetAnimation } = useCardSpread();
   const { gameTypeName, setGameTypeName } = useGameType();
   const { gameData, startGame } = useStartGame();
-
-  const getRandomCardData = useCallback(async () => {
-    try {
-      const allCardData: ICardData[] = await getAllCards();
-      const randomNums = getRandomNumber(allCardData.length - 1, MAX_SELECTED_CARD); 
-      return randomNums.map((num: number) => allCardData[num]);
-    } catch (error) {
-      console.error('getRandomCardData error', error);
-      return [];
-    }
-  },[]);
 
   useEffect(() => {
     if (selectedCards.length === MAX_SELECTED_CARD) {
@@ -36,7 +24,7 @@ export const Main = () => {
         setTimeout(() => navigate('/main/select', { state: { gameData, randomCards } }), 1000);
       });
     }
-  }, [selectedCards, navigate]);
+  }, [selectedCards, navigate, getRandomCardData, gameData]);
 
   const handleGameTypeChange = useCallback((newGameType: string, newGameTypeId: string) => {
       setGameTypeName(newGameType);
@@ -48,10 +36,8 @@ export const Main = () => {
 
   const handleCardClick = useCallback(
     async (cardIndex: number) => {
-      if (selectedCards.length === 0) {
+      if (selectedCards.length === 1) {
         await startGame(gameTypeId);
-      }else{
-        console.log('error')
       }
       handleCardSelect(cardIndex);
     },
