@@ -5,66 +5,56 @@ import { useVisible } from '@/hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '@/types/componentsTypes';
 import { CARD_NUM } from '@/utils/constants';
-import axios from 'axios';
+import { endGame, endGameStatus } from '@/apis/game';
 
-export const ThreeCard = ({ isActive, gameData, randomCards }: ThreeCardProps) => {
+export const ThreeCard = ({ isMain, gameData, randomCards }: ThreeCardProps) => {
   const cards = Array(CARD_NUM).fill(cardBackImage);
   const [selectedCardModal, setSelectedCardModal] = useState(false);
   const [polling, setPolling] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
   const { visibleClass } = useVisible();
 
-  const endGame = async () => {
+  const handleEndGame = async () => {
+    if (!isMain) return;
     try {
-      const response = await axios.post('/game/end/', {
-        game_id: gameData?.game_id,
-        select_card_id: randomCards[0].card_id,
-        all_select_card_id: {
-          primary_select_card_id: randomCards[0].card_id,
-          secondary_select_card_id: randomCards[1].card_id,
-          tertiary_select_card_id: randomCards[2].card_id,
-        },
-      });
-      console.log('End game response:', response.data);
-      setPolling(true); 
+      setLoading(true);
+      await endGame(gameData?.game_id, randomCards);
+      setPolling(true);
     } catch (error) {
-      console.error('Error ending game:', error);
+      console.error('Error handleEndGame:', error);
     }
   };
 
-  const endGameStatus = useCallback(async (interval: NodeJS.Timeout) => {
+  const handleEndGameStatus = useCallback(async (interval: NodeJS.Timeout) => {
+    if (!isMain) return;
     try {
-      const response = await axios.post('/game/status/', {
-        game_id: gameData?.game_id,
-      });
-      console.log('Game status:', response.data);
-      if (response.data.data.success === 'READY') {
+      const status = await endGameStatus(gameData?.game_id);
+      if (status.success === 'READY') {
         clearInterval(interval);
         setPolling(false);
-        setSelectedCardModal(true);
+        setLoading(false)
       }
     } catch (error) {
-      console.error('Error polling game status:', error);
+      console.error('Error handleEndGameStatus:', error);
     }
-  }, [gameData]);
+  }, [gameData, isMain]);
 
   useEffect(() => {
     if (polling) {
-      const interval:NodeJS.Timeout = setInterval(() => endGameStatus(interval), 1000); 
-      return () => clearInterval(interval); 
+      const interval: NodeJS.Timeout = setInterval(() => handleEndGameStatus(interval), 1000);
+      return () => clearInterval(interval);
     }
-  }, [polling, endGameStatus]);
+  }, [polling, handleEndGameStatus]);
 
   const handleSelectCard = async () => {
-    await endGame();
+    await handleEndGame();
     setSelectedCardModal(true);
   };
 
   return (
     <>
-      <div
-        className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center ${isActive && visibleClass}`}
-      >
+      <div className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center ${isMain && visibleClass}`}>
         <div className="w-full h-4/5 flex flex-row justify-center relative">
           {cards.map((card, index) => (
             <div key={index} className="flex-1 flex justify-center items-center relative">
@@ -95,7 +85,8 @@ export const ThreeCard = ({ isActive, gameData, randomCards }: ThreeCardProps) =
 
       {selectedCardModal && (
         <ThreeCardSelect
-          isActive={isActive}
+          isMain={isMain}
+          loading={loading}
           selectedCard={randomCards[0]}
           close={() => {
             setSelectedCardModal(false);

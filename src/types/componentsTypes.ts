@@ -18,7 +18,7 @@ export interface IMenuProps {
 
 //game/ThreeCard.tsx
 export interface ThreeCardProps {
-    isActive: boolean;
+    isMain: boolean;
     gameData?: {
         game_id:string;
         game_quest:string;
@@ -29,6 +29,7 @@ export interface ThreeCardProps {
 //game/ThreeCardSelect.tsx
 export interface ThreeCardSelectProps {
     selectedCard: ICardData
-    isActive: boolean;
+    isMain: boolean;
+    loading: boolean;
     close: () => void;
   }

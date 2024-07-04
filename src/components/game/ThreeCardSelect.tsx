@@ -2,11 +2,22 @@ import { useNavigate } from 'react-router-dom';
 import { ThreeCardSelectProps } from '@/types/componentsTypes';
 import { useVisible } from '@/hooks/useVisible';
 import { Button } from '../ui/button';
+import { Loading } from '../common/Loading';
 
-export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSelectProps) => {
+export const ThreeCardSelect = ({ close, isMain, loading, selectedCard }: ThreeCardSelectProps) => {
   const navigate = useNavigate();
   const { visibleClass } = useVisible();
   const handleClickGoToMainBtn = () => navigate('/main');
+
+  if (loading) {
+    return (
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center transition-opacity duration-1000 ${visibleClass}`}
+      >
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -20,9 +31,7 @@ export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSele
         <div className="h-full w-1/2 bg-white p-3 pt-6 relative">
           <div className="h-5/6 overflow-y-auto p-5">
             <div className="mb-12 text-center">
-              <h1 className="font-bold text-2xl mb-1">
-                {selectedCard.card_name}
-              </h1>
+              <h1 className="font-bold text-2xl mb-1">{selectedCard.card_name}</h1>
             </div>
             <div className="mb-7">
               <h1 className="font-bold text-lg mb-1">Good</h1>
@@ -34,7 +43,7 @@ export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSele
             </div>
           </div>
           <div className="h-1/6 flex justify-end items-center p-5">
-            {isActive || (
+            {isMain || (
               <Button className="cursor-default bg-main m-3 hover:bg-main-darker" onClick={close}>
                 Retry
               </Button>
@@ -43,7 +52,7 @@ export const ThreeCardSelect = ({ close, isActive, selectedCard }: ThreeCardSele
               className="cursor-default bg-main hover:bg-main-darker"
               onClick={handleClickGoToMainBtn}
             >
-              {isActive ? <div>Retry</div> : <div>Go to Main</div>}
+              {isMain ? <div>Retry</div> : <div>Go to Main</div>}
             </Button>
           </div>
         </div>

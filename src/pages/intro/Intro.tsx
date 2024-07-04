@@ -6,14 +6,14 @@ import { getRandomCardData } from '@/utils/getRandomCard';
 export const Intro = () => {
   const [cardData, setCardData] = useState<ICardData[]>([]);
 
-  const fetchData = async () => {
+  const getRandomCard = async () => {
     const randomCards = await getRandomCardData();
     setCardData(randomCards);
   };
 
   useEffect(() => {
-    fetchData();
+    getRandomCard();
   }, []);
 
-  return <ThreeCard isActive={false} randomCards={cardData} />;
+  return <ThreeCard isMain={false} randomCards={cardData} />;
 };
