@@ -5,11 +5,12 @@ import { useVisible } from '@/hooks/useVisible';
 import { ThreeCardSelect } from './ThreeCardSelect';
 import { ThreeCardProps } from '@/types/componentsTypes';
 import { CARD_NUM } from '@/utils/constants';
-import { endGame, endGameStatus } from '@/apis/game';
+import { endGame, endGameStatus, getEndGameAnswer } from '@/apis/game';
 
 export const ThreeCard = ({ isMain, gameData, randomCards }: ThreeCardProps) => {
   const cards = Array(CARD_NUM).fill(cardBackImage);
   const [selectedCardModal, setSelectedCardModal] = useState(false);
+  const [answer, setAnswer] = useState('')
   const [polling, setPolling] = useState(false);
   const [loading, setLoading] = useState(false);
   const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } = useCardMove(cards);
@@ -30,10 +31,12 @@ export const ThreeCard = ({ isMain, gameData, randomCards }: ThreeCardProps) => 
     if (!isMain) return;
     try {
       const status = await endGameStatus(gameData?.game_id);
-      if (status.success === 'READY') {
+      if (status.success === 'FINISHED') {
         clearInterval(interval);
         setPolling(false);
         setLoading(false)
+        const responseAnswer = await getEndGameAnswer(gameData?.game_id)
+        setAnswer(responseAnswer)
       }
     } catch (error) {
       console.error('Error handleEndGameStatus:', error);
@@ -88,6 +91,7 @@ export const ThreeCard = ({ isMain, gameData, randomCards }: ThreeCardProps) => 
           isMain={isMain}
           loading={loading}
           selectedCard={randomCards[0]}
+          responseAnswer={answer}
           close={() => {
             setSelectedCardModal(false);
             window.location.reload();

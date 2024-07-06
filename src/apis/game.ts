@@ -29,7 +29,6 @@ export const endGame = async (gameId: string|undefined, randomCards: ICardData[]
     console.log('endGame response:', response.data.data);
     return response.data.data;
   } catch (error) {
-
     throw error;
   }
 };
@@ -46,3 +45,14 @@ export const endGameStatus = async (gameId: string|undefined) => {
   }
 };
 
+export const getEndGameAnswer = async (gameId: string|undefined) =>{
+  try{
+    const response = await axios.post('/game/answer/', {
+      game_id: gameId,
+    });
+    console.log(response.data.data.answer)
+    return response.data.data.answer
+  }catch(error){
+    throw error;
+  }
+}

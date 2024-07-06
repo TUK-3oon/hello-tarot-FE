@@ -31,5 +31,6 @@ export interface ThreeCardSelectProps {
     selectedCard: ICardData
     isMain: boolean;
     loading: boolean;
+    responseAnswer?: string;
     close: () => void;
   }
