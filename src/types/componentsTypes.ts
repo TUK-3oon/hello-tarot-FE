@@ -34,3 +34,13 @@ export interface ThreeCardSelectProps {
     responseAnswer?: string;
     close: () => void;
   }
+
+
+//answer/isMainAnswerProps
+export interface IntroAnswerProps{
+    selectedCard : ICardData
+}
+
+export interface MainAnswerProps{
+    responseAnswer?: string;
+}

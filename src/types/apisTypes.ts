@@ -1,16 +1,4 @@
-// //api/card.ts
-// export interface ICardData {
-//   data:{
-//     card_id: string;
-//     card_name: string;
-//     card_number: number;
-//     card_image_url: string;
-//     card_contents: {
-//       forward: string;
-//       reverse: string;
-//   };
-//   }
-// }
+//api/card.ts
 
 export interface ICardContents {
   forward: string;
