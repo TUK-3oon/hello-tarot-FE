@@ -18,14 +18,29 @@ export interface IMenuProps {
 
 //game/ThreeCard.tsx
 export interface ThreeCardProps {
-    isActive: boolean;
-    question?: string;
-    randomCards?: ICardData[]
+    isMain: boolean;
+    gameData?: {
+        game_id:string;
+        game_quest:string;
+    };
+    randomCards: ICardData[]
 }
 
 //game/ThreeCardSelect.tsx
 export interface ThreeCardSelectProps {
     selectedCard: ICardData
-    isActive: boolean;
+    isMain: boolean;
+    loading: boolean;
+    responseAnswer?: string;
     close: () => void;
   }
+
+
+//answer/isMainAnswerProps
+export interface IntroAnswerProps{
+    selectedCard : ICardData
+}
+
+export interface MainAnswerProps{
+    responseAnswer?: string;
+}

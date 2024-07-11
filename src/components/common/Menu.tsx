@@ -10,7 +10,7 @@ export const Menu = ({ resetAnimation, handleGameTypeChange, initialGameType }: 
   const changeGameType = async () => {
     try {
       const data = await changeGameTypeApi(gameType);
-      handleGameTypeChange(gameType, data.game_type_id);
+      handleGameTypeChange(gameType, data.data.game_type_id);
     } catch (error) {
       console.error('changeGameType error', error);
     }

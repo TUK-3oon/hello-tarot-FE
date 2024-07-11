@@ -1,15 +1,10 @@
 import { ThreeCard } from '@/components/game/ThreeCard';
 import { useLocation } from 'react-router-dom';
-import { DEFAULT_QUESTION } from '@/utils/constants';
 
 export const MainSelect = () => {
   const location = useLocation();
-  const question = location.state.gameData.game_question || DEFAULT_QUESTION;
+  const gameData = location.state.gameData;
   const randomCards = location.state.randomCards
 
-  return (
-    <>
-      <ThreeCard isActive={true} question={question} randomCards={randomCards}></ThreeCard>;
-    </>
-  );
+  return <ThreeCard isMain={true} gameData={gameData} randomCards={randomCards}></ThreeCard>
 };
