@@ -9,6 +9,19 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
   const [positions, setPositions] = useState<ISpreadCardPosition[]>([]);
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(Array(SPREAD_CARD_NUM).fill(true));
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsAnimated(true), 500);
@@ -25,13 +38,16 @@ export const useCardSpread = (): IUseCardSpreadReturn => {
       setVisibleCards(Array(SPREAD_CARD_NUM).fill(true));
       setSelectedCards([]);
     }
-  }, [isAnimated]);
+  }, [isAnimated, windowWidth, windowHeight]);
 
-  const spread = (): ISpreadCardPosition[] =>
-    Array.from({ length: SPREAD_CARD_NUM }, (_, i) => {
-      const angle = (180 / 11) * i * (Math.PI / 180);
-      return { x: 600 * Math.cos(angle), y: 200 * Math.sin(angle) };
+  const spread = (): ISpreadCardPosition[] => {
+    const spreadWidth = windowWidth * 0.8; 
+    const spreadHeight = windowHeight * 0.5; 
+    return Array.from({ length: SPREAD_CARD_NUM }, (_, i) => {
+      const angle = (180 / (SPREAD_CARD_NUM - 1)) * i * (Math.PI / 180);
+      return { x: (spreadWidth / 2) * Math.cos(angle), y: (spreadHeight / 2) * Math.sin(angle) };
     });
+  };
 
   const handleCardClick = (index: number): void => {
     if (selectedCards.length < MAX_SELECTED_CARD) {
