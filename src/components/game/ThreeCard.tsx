@@ -17,7 +17,7 @@ export const ThreeCard = ({ isMain, gameData, randomCards }: ThreeCardProps) => 
   const { visibleClass } = useVisible();
 
   const handleEndGame = async () => {
-    if (!isMain) return;
+    if (!isMain) return ;
     try {
       setLoading(true);
       await endGame(gameData?.game_id, randomCards);

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ThreeCard } from '@/components/game/ThreeCard';
+import { Error } from '@/components/common/Error';
 
 export const MainSelect = () => {
   const navigate = useNavigate();
@@ -17,12 +18,11 @@ export const MainSelect = () => {
     } else {
       sessionStorage.setItem('isReload', 'true');
     }
-  }, [navigate]);
-
+  }, []);
   
-  // if (!gameData || !randomCards) {
-  //   return null; 
-  // }
+  if (!gameData || !randomCards) {
+    return <Error></Error>; 
+  }
 
   return <ThreeCard isMain={true} gameData={gameData} randomCards={randomCards} />;
 };
