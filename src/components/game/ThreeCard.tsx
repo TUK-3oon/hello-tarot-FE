@@ -7,6 +7,7 @@ import { ThreeCardProps } from '@/types/componentsTypes';
 import { CARD_NUM } from '@/utils/constants';
 import { endGame, endGameStatus, getEndGameAnswer } from '@/apis/game';
 import { THREE_CARD_SIZE } from '@/utils/css';
+import { useNavigate } from 'react-router-dom';
 
 export const ThreeCard = ({
   isMain,
@@ -14,10 +15,12 @@ export const ThreeCard = ({
   randomCards,
 }: ThreeCardProps) => {
   const cards = Array(CARD_NUM).fill(cardBackImage);
+  const navigate = useNavigate()
   const [selectedCardModal, setSelectedCardModal] = useState(false);
   const [answer, setAnswer] = useState('');
   const [polling, setPolling] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorTimeout, setErrorTimeout] = useState(false);
   const { rotationAngles, overlayStyles, handleMouseMove, handleMouseLeave } =
     useCardMove(cards);
   const { visibleClass } = useVisible();
@@ -54,13 +57,20 @@ export const ThreeCard = ({
 
   useEffect(() => {
     if (polling) {
-      const interval: NodeJS.Timeout = setInterval(
-        () => handleEndGameStatus(interval),
-        1000
-      );
-      return () => clearInterval(interval);
+      const interval: NodeJS.Timeout = setInterval(() => handleEndGameStatus(interval), 1000);
+      const timer = setTimeout(() => setErrorTimeout(true), 10000); 
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timer);
+      };
     }
   }, [polling, handleEndGameStatus]);
+
+  useEffect(() => {
+    if (errorTimeout) {
+      navigate('/error'); 
+    }
+  }, [errorTimeout, navigate]);
 
   const handleSelectCard = async () => {
     await handleEndGame();

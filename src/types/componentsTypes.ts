@@ -1,7 +1,7 @@
 import { ICardData } from "./apisTypes";
 
 //common/Logo.tsx
-export interface LogoProps {
+export interface HeaderProps {
     gameType: string;
 }
 
