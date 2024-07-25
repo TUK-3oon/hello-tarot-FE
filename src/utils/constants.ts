@@ -37,3 +37,4 @@ export const DEFAULT_RANDOM_THREE_CARDS = [
       }
   }
   ]
+
