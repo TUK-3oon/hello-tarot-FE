@@ -1,10 +1,28 @@
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ThreeCard } from '@/components/game/ThreeCard';
-import { useLocation } from 'react-router-dom';
+import { Error } from '@/components/common/Error';
 
 export const MainSelect = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const gameData = location.state.gameData;
-  const randomCards = location.state.randomCards
+  const gameData = location.state?.gameData;
+  const randomCards = location.state?.randomCards;
 
-  return <ThreeCard isMain={true} gameData={gameData} randomCards={randomCards}></ThreeCard>
+  useEffect(() => {
+    const isReload = sessionStorage.getItem('isReload');
+
+    if (isReload) {
+      sessionStorage.removeItem('isReload');
+      navigate('/main');
+    } else {
+      sessionStorage.setItem('isReload', 'true');
+    }
+  }, []);
+  
+  if (!gameData || !randomCards) {
+    return <Error></Error>; 
+  }
+
+  return <ThreeCard isMain={true} gameData={gameData} randomCards={randomCards} />;
 };
