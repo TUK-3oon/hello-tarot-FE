@@ -18,6 +18,14 @@ export const Main = () => {
   const { gameData, startGame } = useStartGame();
 
   useEffect(() => {
+    const isReload = sessionStorage.getItem('isReload');
+
+    if (isReload) {
+      sessionStorage.removeItem('isReload');
+    } 
+  }, []);
+
+  useEffect(() => {
     if (selectedCards.length === MAX_SELECTED_CARD) {
       setIsHidden(true);
       getRandomCardData().then((randomCards) => {
@@ -55,7 +63,7 @@ export const Main = () => {
               visibleCards[i] && (
                 <div
                   key={i}
-                  className={`card card-${i} w-16 h-24 sm:w-20 sm:h-28 md:w-22 md:h-30 lg:w-24 lg:h-32 cursor-default bg-tarot-back bg-center bg-no-repeat bg-contain absolute transition-all duration-1000`}
+                  className={`card card-${i} w-16 h-24 sm:w-20 sm:h-28 md:w-22 md:h-30 lg:w-24 lg:h-32 cursor-default bg-tarot-back bg-center bg-no-repeat bg-contain absolute transition-all duration-500`}
                   style={{ left: `${card.x}px`, top: `${card.y}px` }}
                   onClick={() => handleCardClick(i)}
                 />
