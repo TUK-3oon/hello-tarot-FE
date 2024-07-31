@@ -80,16 +80,16 @@ export const ThreeCard = ({
   return (
     <>
       <div
-        className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center ${isMain && visibleClass}`}
+        className={`fixed inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center ${isMain && visibleClass} overflow-y-scroll`}
       >
-        <div className="w-full h-4/5 flex flex-row justify-center relative">
+        <div className="w-full h-auto flex flex-col sm:flex-row justify-center relative ">
           {cards.map((card, index) => (
             <div
               key={index}
               className="flex-1 flex justify-center items-center relative"
             >
               <div
-                className={`relative bg-tarot-back bg-cover bg-no-repeat bg-center ${THREE_CARD_SIZE} transition-all duration-500 ease-out`}
+                className={`relative bg-tarot-back bg-cover bg-no-repeat bg-center ${THREE_CARD_SIZE} transition-all duration-500 ease-out my-2 sm:my-0`}
                 onMouseMove={(e) => handleMouseMove(index, e)}
                 onMouseLeave={() => handleMouseLeave(index)}
                 onClick={handleSelectCard}
@@ -109,7 +109,7 @@ export const ThreeCard = ({
           ))}
         </div>
         {gameData && (
-          <div className="mb-5 text-white text-2xl text-center">
+          <div className="text-white text-2xl text-center">
             {gameData.game_quest}
           </div>
         )}

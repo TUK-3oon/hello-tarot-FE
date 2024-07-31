@@ -6,7 +6,7 @@ export const Layout = () => {
   const { gameTypeName } = useGameType();
 
   return (
-    <div className="w-screen h-screen bg-main relative cursor-default">
+    <div className="w-screen h-screen bg-main relative cursor-default min-w-[320px] ">
       <Header gameType={gameTypeName} />
       <Outlet />
     </div>
